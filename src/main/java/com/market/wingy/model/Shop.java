@@ -17,7 +17,8 @@ public class Shop {
     @Id
     private ObjectId id;
     private String name;
-    private String image;
+    private String cover;
+    private String logo;
     private boolean isActivated;
     private Address address;
     private Location location;

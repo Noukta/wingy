@@ -5,6 +5,7 @@ import com.market.wingy.repository.ProductRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,14 +24,17 @@ public class ProductService {
         return productRepository.findAllByShopId(shopId);
     }
 
+    @Transactional
     public Product save(Product product) {
         return productRepository.save(product);
     }
 
+    @Transactional
     public void delete(ObjectId id) {
         productRepository.deleteById(id);
     }
 
+    @Transactional
     public Optional<Product> update(ObjectId id, Product updatedProduct) {
         return productRepository.findById(id)
                 .map(existingProduct -> {

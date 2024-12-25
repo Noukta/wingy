@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Service
@@ -35,11 +37,13 @@ public class ShopService {
         return shopRepository.findByIsActivatedTrue(pageable);
     }
 
+    @Transactional
     public Optional<Shop> update(ObjectId id, Shop updatedShop) {
         return shopRepository.findById(id)
                 .map(existingShop -> {
                     existingShop.setName(updatedShop.getName());
-                    existingShop.setImage(updatedShop.getImage());
+                    existingShop.setCover(updatedShop.getCover());
+                    existingShop.setLogo(updatedShop.getLogo());
                     existingShop.setAddress(updatedShop.getAddress());
                     existingShop.setLocation(updatedShop.getLocation());
                     existingShop.setFoodTypes(updatedShop.getFoodTypes());
@@ -52,10 +56,12 @@ public class ShopService {
                 });
     }
 
+    @Transactional
     public Shop save(Shop shop) {
         return shopRepository.save(shop);
     }
 
+    @Transactional
     public void deleteShop(ObjectId id) {
         shopRepository.deleteById(id);
     }
