@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/shops")
+@RequestMapping("/api/shops")
 public class ShopController {
 
     @Autowired

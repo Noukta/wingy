@@ -2,8 +2,8 @@ package com.market.wingy.service;
 
 import com.market.wingy.model.Customer;
 import com.market.wingy.repository.CustomerRepository;
-import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,10 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class CustomerService {
-    private final CustomerRepository customerRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     public Optional<Customer> getCustomerById(ObjectId id) {
         return customerRepository.findById(id);
@@ -48,15 +49,15 @@ public class CustomerService {
     }
 
     @Transactional
-    public Optional<Customer> updateCustomer(ObjectId id, Customer customerDetails) {
+    public Optional<Customer> updateCustomer(ObjectId id, Customer updatedCustomer) {
         return customerRepository.findById(id)
                 .map(existingCustomer -> {
-                    existingCustomer.setFirstName(customerDetails.getFirstName());
-                    existingCustomer.setLastName(customerDetails.getLastName());
-                    existingCustomer.setBirthdate(customerDetails.getBirthdate());
-                    existingCustomer.setGender(customerDetails.getGender());
-                    existingCustomer.setDefaultDeliveryAddress(customerDetails.getDefaultDeliveryAddress());
-                    existingCustomer.setCurrentLocation(customerDetails.getCurrentLocation());
+                    existingCustomer.setFirstName(updatedCustomer.getFirstName());
+                    existingCustomer.setLastName(updatedCustomer.getLastName());
+                    existingCustomer.setBirthdate(updatedCustomer.getBirthdate());
+                    existingCustomer.setGender(updatedCustomer.getGender());
+                    existingCustomer.setDefaultDeliveryAddress(updatedCustomer.getDefaultDeliveryAddress());
+                    existingCustomer.setCurrentLocation(updatedCustomer.getCurrentLocation());
                     existingCustomer.setLastActivity(LocalDateTime.now());
                     return customerRepository.save(existingCustomer);
                 });

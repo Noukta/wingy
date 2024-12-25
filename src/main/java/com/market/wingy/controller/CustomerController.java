@@ -49,8 +49,8 @@ public class CustomerController {
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(
             @PathVariable ObjectId id,
-            @RequestBody Customer customerDetails) {
-        return customerService.updateCustomer(id, customerDetails)
+            @RequestBody Customer updatedCustomer) {
+        return customerService.updateCustomer(id, updatedCustomer)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
