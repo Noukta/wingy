@@ -22,7 +22,7 @@ public class Product {
     private String name;
     private String image;
     private String description;
-    private float price;
+    private double price;
     private String category;
     private List<Option> options;
 
@@ -31,7 +31,8 @@ public class Product {
     @AllArgsConstructor
     public static class Option {
         private String title;
-        private List<String> choices = new ArrayList<>();
+        private List<Extra> extras = new ArrayList<>();
         private int maxSelect = 1;
+        private boolean isRequired = false;
     }
 }
