@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "orders")
 public class Order {
@@ -25,13 +26,37 @@ public class Order {
     private List<Item> items;
     private double deliveryPrice;
     private double totalPrice;
-    private OrderState state = OrderState.PENDING;
+    private OrderState state;
     private Map<OrderState, LocalDateTime> stateTimestamps = new EnumMap<>(OrderState.class);
 
-    public Order() {
-        stateTimestamps.put(OrderState.PENDING, LocalDateTime.now());
+    public void calculatePrices() {
+        double itemsTotal = items.stream()
+                .mapToDouble(this::calculateItemPrice)
+                .sum();
+        totalPrice = itemsTotal + deliveryPrice;
     }
 
+    private double calculateItemPrice(Order.Item item) {
+        double basePrice = item.getProduct().getPrice();
+        double extrasPrice = calculateExtrasPrice(item);
+        return (basePrice + extrasPrice) * item.getCount();
+    }
+
+    private double calculateExtrasPrice(Order.Item item) {
+        double extrasPrice = 0;
+        for (int optionIndex = 0; optionIndex < item.getSelectedExtras().size(); optionIndex++) {
+            for (Integer index : item.getSelectedExtras().get(optionIndex)) {
+                Extra extra = item.getProduct().getOptions().get(optionIndex).getExtras().get(index);
+                extrasPrice += extra.getPrice();
+            }
+        }
+        return extrasPrice;
+    }
+
+    public void initiateState(){
+        this.state = OrderState.PENDING;
+        this.stateTimestamps.put(OrderState.PENDING, LocalDateTime.now());
+    }
     public void updateState(OrderState newState) {
         if (isValidStateTransition(newState)) {
             this.state = newState;

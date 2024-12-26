@@ -1,6 +1,5 @@
 package com.market.wingy.service;
 
-import com.market.wingy.model.Extra;
 import com.market.wingy.model.Order;
 import com.market.wingy.repository.OrderRepository;
 import org.bson.types.ObjectId;
@@ -33,7 +32,8 @@ public class OrderService {
 
     @Transactional
     public Order save(Order order) {
-        calculatePrices(order);
+        order.calculatePrices();
+        order.initiateState();
         return orderRepository.save(order);
     }
 
@@ -46,28 +46,5 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    private void calculatePrices(Order order) {
-        double itemsTotal = order.getItems().stream()
-                .mapToDouble(this::calculateItemPrice)
-                .sum();
 
-        order.setTotalPrice(itemsTotal + order.getDeliveryPrice());
-    }
-
-    private double calculateItemPrice(Order.Item item) {
-        double basePrice = item.getProduct().getPrice();
-        double extrasPrice = calculateExtrasPrice(item);
-        return (basePrice + extrasPrice) * item.getCount();
-    }
-
-    private double calculateExtrasPrice(Order.Item item) {
-        double extrasPrice = 0;
-        for (int optionIndex = 0; optionIndex < item.getSelectedExtras().size(); optionIndex++) {
-            for (Integer index : item.getSelectedExtras().get(optionIndex)) {
-                Extra extra = item.getProduct().getOptions().get(optionIndex).getExtras().get(index);
-                extrasPrice += extra.getPrice();
-            }
-        }
-        return extrasPrice;
-    }
 }
