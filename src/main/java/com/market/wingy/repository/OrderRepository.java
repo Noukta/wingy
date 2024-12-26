@@ -12,5 +12,4 @@ public interface OrderRepository extends MongoRepository<Order, ObjectId> {
     Page<Order> findByShopId(ObjectId shopId, Pageable pageable);
     Page<Order> findByShopIdAndState(ObjectId shopId, Order.OrderState state, Pageable pageable);
     Page<Order> findByCustomerId(ObjectId customerId, Pageable pageable);
-    Page<Order> findByShopIdAndCustomerId(ObjectId shopId, ObjectId customerId, Pageable pageable);
 }
