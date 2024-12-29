@@ -2,19 +2,19 @@ package com.market.wingy.controller;
 
 import com.market.wingy.model.Order;
 import com.market.wingy.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrder(@PathVariable ObjectId id) {

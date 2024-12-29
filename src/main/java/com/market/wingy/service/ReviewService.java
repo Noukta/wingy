@@ -2,8 +2,8 @@ package com.market.wingy.service;
 
 import com.market.wingy.model.Review;
 import com.market.wingy.repository.ReviewRepository;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ReviewService {
 
-    @Autowired
-    private ReviewRepository reviewRepository;
+    private final ReviewRepository reviewRepository;
 
     public Optional<Review> findReviewByCustomerAndShop(ObjectId shopId, ObjectId customerId) {
         return reviewRepository.findByShopIdAndCustomerId(shopId, customerId);

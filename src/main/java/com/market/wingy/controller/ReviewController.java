@@ -2,8 +2,8 @@ package com.market.wingy.controller;
 
 import com.market.wingy.model.Review;
 import com.market.wingy.service.ReviewService;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +13,11 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/reviews")
 public class ReviewController {
 
-    @Autowired
-    private ReviewService reviewService;
+    private final ReviewService reviewService;
 
     @GetMapping("/{shopId}/{customerId}")
     public ResponseEntity<Optional<Review>> getReviewByCustomerAndShop(

@@ -2,19 +2,19 @@ package com.market.wingy.controller;
 
 import com.market.wingy.model.Shop;
 import com.market.wingy.service.ShopService;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/shops")
 public class ShopController {
 
-    @Autowired
-    private ShopService shopService;
+    private final ShopService shopService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Shop> getShopById(@PathVariable ObjectId id) {

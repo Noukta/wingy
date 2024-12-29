@@ -3,8 +3,8 @@ package com.market.wingy.service;
 import com.market.wingy.model.Shop;
 import com.market.wingy.model.ShopMember;
 import com.market.wingy.repository.ShopMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ShopMemberService {
 
-    @Autowired
-    private ShopMemberRepository shopMemberRepository;
+    private final ShopMemberRepository shopMemberRepository;
 
     public Optional<ShopMember> getShopMemberById(ObjectId id) {
         return shopMemberRepository.findById(id);

@@ -2,8 +2,8 @@ package com.market.wingy.service;
 
 import com.market.wingy.model.Order;
 import com.market.wingy.repository.OrderRepository;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     public Optional<Order> findById(ObjectId id) {
         return orderRepository.findById(id);

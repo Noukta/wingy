@@ -2,8 +2,8 @@ package com.market.wingy.service;
 
 import com.market.wingy.model.Product;
 import com.market.wingy.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public Optional<Product> findById(ObjectId id) {
         return productRepository.findById(id);
