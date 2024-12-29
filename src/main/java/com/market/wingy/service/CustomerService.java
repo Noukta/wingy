@@ -2,8 +2,8 @@ package com.market.wingy.service;
 
 import com.market.wingy.model.Customer;
 import com.market.wingy.repository.CustomerRepository;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     public Optional<Customer> getCustomerById(ObjectId id) {
         return customerRepository.findById(id);
