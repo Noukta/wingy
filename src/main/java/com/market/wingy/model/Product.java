@@ -22,8 +22,9 @@ public class Product {
     private String name;
     private String image;
     private String description;
-    private double price;
+    private List<Choice> sizes;
     private String category;
+    private boolean isAvailable;
     private List<Option> options;
 
     @Data
@@ -31,8 +32,8 @@ public class Product {
     @AllArgsConstructor
     public static class Option {
         private String title;
-        private List<Extra> extras = new ArrayList<>();
-        private int maxSelect = 1;
+        private List<Choice> choices = new ArrayList<>();
+        //private int maxSelect = 1;
         private boolean isRequired = false;
     }
 }

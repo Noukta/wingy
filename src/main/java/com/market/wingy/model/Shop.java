@@ -24,8 +24,6 @@ public class Shop {
     private Location location;
     private Set<String> foodTypes = new HashSet<>();
     private Set<String> categories = new HashSet<>();
-    private Double avg_rating;
-    private Long count_rating;
     private List<Availability> availabilityList;
 
     @Data

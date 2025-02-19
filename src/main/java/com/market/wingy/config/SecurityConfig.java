@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/api/v1/auth/customer/**").permitAll()
                         .requestMatchers("/api/v1/auth/admin/**").permitAll()
-                        .requestMatchers("/api/v1/auth/shop/**").permitAll()
+                        .requestMatchers("/api/v1/auth/shop-member/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement((session) -> session

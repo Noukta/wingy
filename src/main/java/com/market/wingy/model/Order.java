@@ -46,8 +46,8 @@ public class Order {
         double extrasPrice = 0;
         for (int optionIndex = 0; optionIndex < item.getSelectedExtras().size(); optionIndex++) {
             for (Integer index : item.getSelectedExtras().get(optionIndex)) {
-                Extra extra = item.getProduct().getOptions().get(optionIndex).getExtras().get(index);
-                extrasPrice += extra.getPrice();
+                Choice choice = item.getProduct().getOptions().get(optionIndex).getChoices().get(index);
+                extrasPrice += choice.getPrice();
             }
         }
         return extrasPrice;
@@ -68,7 +68,7 @@ public class Order {
 
     private boolean isValidStateTransition(OrderState newState) {
         return switch (state) {
-            case PENDING -> newState == OrderState.PREPARING || newState == OrderState.DECLINED || newState == OrderState.CANCELED ;
+            case PENDING -> newState == OrderState.PREPARING || newState == OrderState.DECLINED || newState == OrderState.CANCELED;
             case PREPARING -> newState == OrderState.PREPARED;
             case PREPARED -> newState == OrderState.PICKED_UP;
             case PICKED_UP -> newState == OrderState.DELIVERED;
